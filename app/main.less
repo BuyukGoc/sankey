@@ -1,0 +1,26 @@
+@text-color: #aaa;
+@rect-border-color-grey:#E6E6E6;
+body {
+  font-family: Consolas, courier;
+  text-align: center;
+}
+.node rect {
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+.link {
+  fill: none;
+  stroke-opacity: .5;
+}
+.link:hover {
+  stroke-opacity: 1;
+}
+rect.bordered {
+  stroke: @rect-border-color-grey;
+  stroke-width:2px;
+}
+
+text.mono {
+ font-size: 9pt;
+ fill:@text-color;
+}
