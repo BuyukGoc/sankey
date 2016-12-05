@@ -11,7 +11,6 @@
   const height = 1250 - margin.top - margin.bottom;
   const color = d3.scale.category20();
   let DATA = require('./goc.json');
-  console.log(dataJson);
   let lookup = {};
   let items = DATA;
   let result = [];
@@ -24,23 +23,31 @@
       result.push(name);
     }
   }
+  for (let item, i = 0; item = items[i++];) {
+    let name = item.Sektor;
+    if (!(name in lookup)) {
+      lookup[name] = 1;
+      result.push(name);
+    }
+  }
+
   data.nodes = [];
   for (item in lookup ){
     let obj ={};
     obj.name = item;
     data.nodes.push(obj)
   }
-  data.nodes.push({name:"Turkiye"})
+  // data.nodes.push({name:"Turkiye"})
 
   data.nodes.forEach(function(x){
     nodeMap[x.name] = x});
 
   data.links = dataJson.reduce(function(result, curr) {
-    result[curr.Nerden + "_" + curr.Ulke] = {
-      source: curr.Nerden,
+    result[curr.Sektor + "_" + curr.Ulke] = {
+      source: curr.Sektor,
       target: curr.Ulke,
-      class: curr.Ulke.replace(/\s+/g, '')+" "+ curr.Nerden.replace(/\s+/g, '')+" link",
-      value: (result[curr.Nerden + "_" + curr.Ulke] || { value: 0 }).value + 1,
+      class: curr.Ulke.replace(/\s+/g, '')+" "+ curr.Sektor.replace(/\s+/g, '')+" link",
+      value: (result[curr.Sektor + "_" + curr.Ulke] || { value: 0 }).value + 1,
     };
 
     return result;
