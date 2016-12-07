@@ -11,12 +11,12 @@
   const color = d3.scale.category20();
   let DATA = require('./goc.json');
   let current_year = 2016;
+
   //lookup node target and source names to map them later
 
-  let lookup = {};
-  let result = [];
   let items = DATA;
-
+  let lookup={};
+  let result=[];
   let years =[];
 
   for (let item, i = 0; item = items[i++];) {
@@ -25,25 +25,22 @@
     let year = item.Yil;
 
     if (!(name in lookup)) {
-
       lookup[name] = 1;
       result.push(name);
     } else if (!(sector in lookup)){
 
-      lookup[sector] = 1;
+      lookup[sector] = sector;
       result.push(sector);
     }else if ((name in lookup)) {
       lookup[name] += 1;
     }
-    if (!(years.includes(year)) && (year != null) && (year < 2018)) {
+    if (!(years.includes(year)) && (year != null) && (year <2018)) {
       years.push(year)
     }
   }
 years = years.sort();
 years.push("hepsi")
-// $('#mySlider').prop('max', years.length-1);
 
-console.log(years);
 $("#rangeInput").prop({
     max: years.length - 1
   })
@@ -71,19 +68,33 @@ function update(year){
     }
 
     data.nodes.forEach(function(x){
-      nodeMap[x.name] = x});
+      nodeMap[x.name] = x
+    });
 
     data.links = dataJson.reduce(function(result, curr) {
-      result[curr.Sektor + "_" + curr.Ulke] = {
+      result[curr.Sektor + "_" + curr.Ulke + "_" + curr.Yil] = {
         year: curr.Yil,
         source: curr.Sektor,
         target: curr.Ulke,
         class: curr.Ulke.replace(/\s+/g, '')+" "+ curr.Sektor.replace(/\s+/g, '')+" link",
-        value: (result[curr.Sektor + "_" + curr.Ulke] || { value: 0 }).value + 1,
-      };
-
+        value: (result[curr.Sektor + "_" + curr.Ulke + "_" +curr.Yil] || { value: 0 }).value + 1,
+      }
       return result;
     }, {});
+
+    if(year == "hepsi"){
+      data.links = dataJson.reduce(function(result, curr) {
+        result[curr.Sektor + "_" + curr.Ulke ] = {
+          year: curr.Yil,
+          source: curr.Sektor,
+          target: curr.Ulke,
+          class: curr.Ulke.replace(/\s+/g, '')+" "+ curr.Sektor.replace(/\s+/g, '')+" link",
+          value: (result[curr.Sektor + "_" + curr.Ulke] || { value: 0 }).value + 1,
+        }
+        return result;
+      }, {});
+    }
+
 
     data.links = Object.keys(data.links).map(function(key) {return data.links[key]});
 
@@ -139,6 +150,7 @@ function update(year){
               }else if( d.year == year){
                 return d.color = color(d.target.name.replace(/ .*/, ""));
               }
+
             })
             .style("stroke-width", function (d) {
 

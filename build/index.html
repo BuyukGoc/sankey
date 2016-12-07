@@ -2,14 +2,60 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Data Visualization</title>
+    <title>Büyük Göç</title>
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <style media="screen">
+      body {  font-family: courier, monospace;}
+      .container {
+        width: 900px;
+        margin: auto;
+      }
+      header p {
+        text-align: left;
+        margin: 30px 0;
+      }
 
+      header h3 {
+        text-align: left;
+      }
+
+      footer p {
+        text-align: left;
+        margin: 30px 0;
+      }
+
+      footer {
+        margin-bottom: 50px;
+      }
+
+      a {
+        color: #F13D7C;
+      }
+    </style>
   </head>
   <body>
-    <input class="range" type="range" name="rangeInput" id="rangeInput" value="0" min="0" />
-    <output for="rangeInput" id="year"></output>
-    <div id="goc">
+    <div class="container">
+      <header>
+        <h1>Büyük Göç</h1>
+        <p>Son zamanlarda Türkiye'den yurtdışına göçlerin hepimiz farkındayız. Göçleri Türkiye'deki olaylara göre endeksleyerek bir görselleştirme yapmak istiyoruz. Buna yardım etmek için son zamanlarda Türkiye'den ayrılmış ya da ayrılmak üzere olan bir arkadaşınızın baş harflerini, taşındığı şehri ve bulunduğu sektörü paylaşabilir misiniz?</p>
+
+        <h3>Bu zamana kadar gönderilen kayıtlar (750)</h3>
+      </header>
+      Yıl: <input class="range" type="range" name="rangeInput" id="rangeInput" value="0" min="0" />
+      <output for="rangeInput" id="year">2016</output>
+      <div id="goc">
+      </div>
+      <footer>
+        <p>Bildirim yapmak için <a href="bildir.html">buraya</a> tıklayabilirsiniz.</p>
+        <p>
+          Veri Görselleştirme: <a href="http://twitter.com/terskaplumbaa">@terskaplumbaa <i class="em em-turtle"></i></a>  <br>
+          Veri Derleme:
+          <a href="http://twitter.com/yiit">@yiit</a>,
+          <a href="http://twitter.com/fthrkl">@fthrkl</a>,
+          <a href="http://twitter.com/kemalbsoylu">@kemalbsoylu</a>
+        </p>
+      </footer>
+      <script src="./bundle.js"></script>
     </div>
-    <script src="./bundle.js"></script>
   </body>
 </html>
