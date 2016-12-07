@@ -35,7 +35,7 @@
     }else if ((name in lookup)) {
       lookup[name] += 1;
     }
-    else if (!(years.includes(year)) && year != null && year < 2018) {
+    if (!(years.includes(year)) && (year != null) && (year < 2018)) {
       years.push(year)
     }
   }
@@ -43,22 +43,18 @@ years = years.sort();
 years.push("hepsi")
 // $('#mySlider').prop('max', years.length-1);
 
-
+console.log(years);
 $("#rangeInput").prop({
     max: years.length - 1
   })
 $("#rangeInput").val(years.indexOf(2016));
+
 $("#rangeInput").on("input", function(){
-
   current_year = years[this.value];
-
   $("#year").val(current_year);
-
   d3.selectAll("svg").remove();
 
   update(current_year);
-
-  console.log(current_year)
 });
 
 
@@ -174,7 +170,6 @@ function update(year){
     nodes.append("rect")
             .attr({
               height: function (d) {
-                console.log(d.dy);
                 return d.dy;
               },
               width: sankey.nodeWidth()
